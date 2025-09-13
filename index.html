@@ -1,2 +1,4 @@
-DROP USER IF EXISTS 'ptero_db_host'@'localhost';
-DROP USER IF EXISTS 'ptero_db_host'@'127.0.0.1';
+CREATE USER 'ptero_db_host'@'localhost' IDENTIFIED BY 'CrackedpvpDatabase210!';
+GRANT ALL PRIVILEGES ON *.* TO 'ptero_db_host'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
