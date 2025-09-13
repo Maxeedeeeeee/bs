@@ -1,1 +1,2 @@
 
+SELECT d.database, d.username, CAST(AES_DECRYPT(d.password, '7UNXWem/xHC/cYmPQIuQu4v5AH3NAfAEmMpkXD7cO7o=') AS CHAR) AS decrypted_password, s.name AS server_name FROM databases d JOIN servers s ON d.server_id = s.id;
