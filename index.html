@@ -1,3 +1,1 @@
-CREATE USER 'temp_dumper'@'localhost' IDENTIFIED BY 'DumperPass123!';
-GRANT ALL PRIVILEGES ON `s2_s2_thedatabase`.* TO 'temp_dumper'@'localhost';
-FLUSH PRIVILEGES;
+mysqldump -h localhost -u temp_dumper -p'DumperPass123!' s2_s2_thedatabase > game_db_backup.sql
