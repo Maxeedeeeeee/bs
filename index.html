@@ -1,1 +1,3 @@
-SELECT `database`, `username`, CAST(AES_DECRYPT(`password`, '7UNXWem/xHC/cYmPQIuQu4v5AH3NAfAEmMpkXD7cO7o=') AS CHAR) AS decrypted_password FROM `databases`;
+CREATE USER 'temp_dumper'@'localhost' IDENTIFIED BY 'DumperPass123!';
+GRANT ALL PRIVILEGES ON `s2_s2_thedatabase`.* TO 'temp_dumper'@'localhost';
+FLUSH PRIVILEGES;
