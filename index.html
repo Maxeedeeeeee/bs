@@ -1,1 +1,4 @@
-ALTER USER 'ptero_db_host'@'localhost' IDENTIFIED BY 'FinalPass2025';
+CREATE USER 'ptero_db_host'@'localhost' IDENTIFIED BY 'FinalPass2025';
+GRANT ALL PRIVILEGES ON *.* TO 'ptero_db_host'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
