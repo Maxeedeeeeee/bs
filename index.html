@@ -1,5 +1,49 @@
-sudo nano /etc/nginx/sites-available/eagler.crackedpvp.club
+# This server block handles all insecure HTTP traffic on port 80.
+# Its only job is to permanently redirect users to the secure HTTPS version.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name eagler.crackedpvp.club;
 
+    # Redirect all traffic to the HTTPS equivalent
+    return 301 https://$host$request_uri;
+}
 
-ssl_certificate /etc/letsencrypt/live/eagler.crackedpvp.club/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/eagler.crackedpvp.club/privkey.pem;
+# This is the main server block that handles all secure HTTPS traffic.
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name eagler.crackedpvp.club;
+
+    # --- SSL Certificate Paths ---
+    # These paths should point to the Let's Encrypt certificates for your domain.
+    ssl_certificate /etc/letsencrypt/live/eagler.crackedpvp.club/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/eagler.crackedpvp.club/privkey.pem;
+
+    # --- Security & Performance Settings ---
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256';
+    ssl_prefer_server_ciphers off;
+
+    # --- Reverse Proxy for Eaglercraft ---
+    # This section forwards all traffic to your Eaglercraft server.
+    location / {
+        # The address and port of your backend server.
+        proxy_pass http://127.0.0.1:25572;
+
+        # Headers required to upgrade the connection to WebSocket for gameplay.
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Headers required to forward the player's real IP address to the backend.
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/eagler.crackedpvp.club /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t
