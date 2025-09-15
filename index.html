@@ -1,17 +1,31 @@
-See "systemctl status nginx.service" and "journalctl -xeu nginx.service" for details.
-root@crackedpvp:~# sudo systemctl status nginx
-× nginx.service - A high performance web server and a reverse proxy server
-     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; preset: enabled)
-     Active: failed (Result: exit-code) since Sun 2025-09-14 20:47:11 CDT; 7s ago
-   Duration: 1d 6h 20min 5.659s
-       Docs: man:nginx(8)
-    Process: 565605 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=1/FAILURE)
-        CPU: 5ms
+sudo nano /etc/nginx/sites-available/eagler.crackedpvp.club
 
-Sep 14 20:47:11 crackedpvp systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
-Sep 14 20:47:11 crackedpvp nginx[565605]: 2025/09/14 20:47:11 [emerg] 565605#565605: "server" directive is not allowed here in /etc/nginx/nginx.conf:4
-Sep 14 20:47:11 crackedpvp nginx[565605]: nginx: configuration file /etc/nginx/nginx.conf test failed
-Sep 14 20:47:11 crackedpvp systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
-Sep 14 20:47:11 crackedpvp systemd[1]: nginx.service: Failed with result 'exit-code'.
-Sep 14 20:47:11 crackedpvp systemd[1]: Failed to start nginx.service - A high performance web server and a reverse proxy server.
-root@crackedpvp:~#
+server {
+    listen 80;
+    listen [::]:80;
+    server_name eagler.crackedpvp.club;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name eagler.crackedpvp.club;
+
+    ssl_certificate /PATH/TO/YOUR/fullchain.pem; # <-- EDIT THIS
+    ssl_certificate_key /PATH/TO/YOUR/privkey.pem; # <-- EDIT THIS
+
+    location / {
+        proxy_pass http://127.0.0.1:25572;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+         sudo ln -s /etc/nginx/sites-available/eagler.crackedpvp.club /etc/nginx/sites-enabled/
+         sudo systemctl restart nginx
