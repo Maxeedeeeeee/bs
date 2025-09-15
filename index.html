@@ -1,3 +1,5 @@
-2025/09/14 21:09:50 [emerg] 578310#578310: cannot load certificate "/PATH/TO/YOUR/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/PATH/TO/YOUR/fullchain.pem, r) error:10000080:BIO routines::no such file)
-nginx: configuration file /etc/nginx/nginx.conf test failed
-root@crackedpvp:/home/cracked#
+sudo nano /etc/nginx/sites-available/eagler.crackedpvp.club
+
+
+ssl_certificate /etc/letsencrypt/live/eagler.crackedpvp.club/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/eagler.crackedpvp.club/privkey.pem;
