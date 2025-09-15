@@ -1,43 +1,30 @@
-# This block redirects all insecure http:// traffic to secure https://
-server {
-    listen 80;
-    listen [::]:80;
-    server_name eagler.crackedpvp.club;
-
-    return 301 https://$host$request_uri;
-}
-
-# This is the main, secure block for your site
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name eagler.crackedpvp.club;
-
-    # --- SSL Certificate Paths ---
-    # These are the correct, final paths for your Let's Encrypt certificates.
-    ssl_certificate /etc/letsencrypt/live/eagler.crackedpvp.club/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/eagler.crackedpvp.club/privkey.pem;
-
-    # --- Security & Performance Settings ---
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256';
-
-    # --- Reverse Proxy for your Application ---
-    # This section forwards traffic to your server on port 25572
-    location / {
-        proxy_pass http://127.0.0.1:25572;
-
-        # Headers required for WebSocket connections (for gameplay)
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-
-        # Headers required to forward the player's real IP address
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-
-sudo ln -s /etc/nginx/sites-available/eagler.crackedpvp.club /etc/nginx/sites-enabled/
+root@crackedpvp:/home/cracked# journalctl -xeu nginx.service
+░░ Support: https://www.debian.org/support
+░░
+░░ A start job for unit nginx.service has begun execution.
+░░
+░░ The job identifier is 21985.
+Sep 14 21:17:35 crackedpvp nginx[582607]: 2025/09/14 21:17:35 [emerg] 582607#582607: cannot load certificate "/etc/lets>
+Sep 14 21:17:35 crackedpvp nginx[582607]: nginx: configuration file /etc/nginx/nginx.conf test failed
+Sep 14 21:17:35 crackedpvp systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
+░░ Subject: Unit process exited
+░░ Defined-By: systemd
+░░ Support: https://www.debian.org/support
+░░
+░░ An ExecStartPre= process belonging to unit nginx.service has exited.
+░░
+░░ The process' exit code is 'exited' and its exit status is 1.
+Sep 14 21:17:35 crackedpvp systemd[1]: nginx.service: Failed with result 'exit-code'.
+░░ Subject: Unit failed
+░░ Defined-By: systemd
+░░ Support: https://www.debian.org/support
+░░
+░░ The unit nginx.service has entered the 'failed' state with result 'exit-code'.
+Sep 14 21:17:35 crackedpvp systemd[1]: Failed to start nginx.service - A high performance web server and a reverse prox>
+░░ Subject: A start job for unit nginx.service has failed
+░░ Defined-By: systemd
+░░ Support: https://www.debian.org/support
+░░
+░░ A start job for unit nginx.service has finished with a failure.
+░░
+░░ The job identifier is 21
