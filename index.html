@@ -1,30 +1,3 @@
-root@crackedpvp:/home/cracked# journalctl -xeu nginx.service
-░░ Support: https://www.debian.org/support
-░░
-░░ A start job for unit nginx.service has begun execution.
-░░
-░░ The job identifier is 21985.
-Sep 14 21:17:35 crackedpvp nginx[582607]: 2025/09/14 21:17:35 [emerg] 582607#582607: cannot load certificate "/etc/lets>
-Sep 14 21:17:35 crackedpvp nginx[582607]: nginx: configuration file /etc/nginx/nginx.conf test failed
-Sep 14 21:17:35 crackedpvp systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
-░░ Subject: Unit process exited
-░░ Defined-By: systemd
-░░ Support: https://www.debian.org/support
-░░
-░░ An ExecStartPre= process belonging to unit nginx.service has exited.
-░░
-░░ The process' exit code is 'exited' and its exit status is 1.
-Sep 14 21:17:35 crackedpvp systemd[1]: nginx.service: Failed with result 'exit-code'.
-░░ Subject: Unit failed
-░░ Defined-By: systemd
-░░ Support: https://www.debian.org/support
-░░
-░░ The unit nginx.service has entered the 'failed' state with result 'exit-code'.
-Sep 14 21:17:35 crackedpvp systemd[1]: Failed to start nginx.service - A high performance web server and a reverse prox>
-░░ Subject: A start job for unit nginx.service has failed
-░░ Defined-By: systemd
-░░ Support: https://www.debian.org/support
-░░
-░░ A start job for unit nginx.service has finished with a failure.
-░░
-░░ The job identifier is 21
+sudo ls -l /etc/letsencrypt/live/eagler.crackedpvp.club/
+
+sudo certbot --nginx -d eagler.crackedpvp.club
