@@ -1,63 +1,154 @@
-user www-data;
-worker_processes auto;
-pid /run/nginx.pid;
-include /etc/nginx/modules-enabled/*.conf;
+ot@crackedpvp:/home/cracked# sudo nano /etc/nginx/nginx.conf
+root@crackedpvp:/home/cracked# sudo systemctl restart nginx
+Job for nginx.service failed because the control process exited with error code.
+See "systemctl status nginx.service" and "journalctl -xeu nginx.service" for details.
+root@crackedpvp:/home/cracked# sudo systemctl status nginx
+× nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: failed (Result: exit-code) since Sun 2025-09-14 21:03:13 CDT; 4s ago
+   Duration: 1d 6h 20min 5.659s
+       Docs: man:nginx(8)
+    Process: 574526 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=1/FAILURE)
+        CPU: 8ms
 
-events {
-	worker_connections 768;
-	# multi_accept on;
-}
+Sep 14 21:03:13 crackedpvp systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy serve>
+Sep 14 21:03:13 crackedpvp nginx[574526]: 2025/09/14 21:03:13 [emerg] 574526#574526: cannot load certificate "/PATH/TO/>
+Sep 14 21:03:13 crackedpvp nginx[574526]: nginx: configuration file /etc/nginx/nginx.conf test failed
+Sep 14 21:03:13 crackedpvp systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
+Sep 14 21:03:13 crackedpvp systemd[1]: nginx.service: Failed with result 'exit-code'.
+Sep 14 21:03:13 crackedpvp systemd[1]: Failed to start nginx.service - A high performance web server and a reverse prox>
 
-http {
+root@crackedpvp:/home/cracked# ^C
+root@crackedpvp:/home/cracked#
 
-	##
-	# Basic Settings
-	##
 
-	sendfile on;
-	tcp_nopush on;
-	tcp_nodelay on;
-	keepalive_timeout 65;
-	types_hash_max_size 2048;
-	# server_tokens off;
 
-	# server_names_hash_bucket_size 64;
-	# server_name_in_redirect off;
 
-	include /etc/nginx/mime.types;
-	default_type application/octet-stream;
 
-	##
-	# SSL Settings
-	##
 
-	ssl_protocols TLSv1.2 TLSv1.3; # Dropping SSLv3, TLSv1.0, TLSv1.1
-	ssl_prefer_server_ciphers on;
 
-	##
-	# Logging Settings
-	##
 
-	access_log /var/log/nginx/access.log;
-	error_log /var/log/nginx/error.log;
 
-	##
-	# Gzip Settings
-	##
 
-	gzip on;
 
-	# gzip_vary on;
-	# gzip_proxied any;
-	# gzip_comp_level 6;
-	# gzip_buffers 16 8k;
-	# gzip_http_version 1.1;
-	# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-	##
-	# Virtual Host Configs
-	##
 
-	include /etc/nginx/conf.d/*.conf;
-	include /etc/nginx/sites-enabled/*;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
